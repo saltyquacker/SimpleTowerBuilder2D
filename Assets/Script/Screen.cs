@@ -27,11 +27,12 @@ public class Screen : MonoBehaviour
     public GameObject platform;
 
 
+  
     public Text txtScore;
     //public Text txtHighscore;
 
     private float step;
-    private float speed = 10.0f;
+    private float speed = 100.0f;
 
     private float minx;
     private float maxx;
@@ -44,16 +45,17 @@ public class Screen : MonoBehaviour
     void Start()
     {
         Instantiate(scrollSquare, new Vector3(3.0f, GlobalVar.ypos, 0.0f), Quaternion.identity);
-        //step = speed* Time.deltaTime;
-        step = 0.06f;
+        step = speed* Time.deltaTime;
+        //step = 0.6f;
         Debug.Log("SPEED: " + speed);
         Debug.Log("STEP: " + step);
 
 
     }
     void Update() {
+        
         //Needs update to move camera
-
+   
         if (GlobalVar.squareCount > 3)
         {
 
@@ -64,8 +66,14 @@ public class Screen : MonoBehaviour
         }
 
     }
+    void FixedUpdate()
+    {
+        step = speed * Time.deltaTime * (GlobalVar.score + 1);
+    }
     void OnMouseDown()
     {
+     
+        //step = 0.6f*(GlobalVar.score+1);
         //Moved from Update, trying to get rid of all updates for speed
 
         if (GlobalVar.gameOver == false)
@@ -112,7 +120,7 @@ public class Screen : MonoBehaviour
                 else
                 {
                 //    GlobalVar.squareLocations.Add(currentLocation);
-                    Instantiate(noSquare, currentSquare.transform.position, Quaternion.identity);
+                    
                     Debug.Log("GAME OVER");
                    // GameOver();
                     GlobalVar.gameOver = true;

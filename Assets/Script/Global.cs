@@ -21,4 +21,7 @@ public static class GlobalVar
     public static string currentHighscore;
 
     public static string previousEntry;
+
+    public static float squareSpeed = 0.0f;
+    public static int modulo = 0;
 }

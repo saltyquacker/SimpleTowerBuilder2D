@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using UnityEngine.UI;
 public class SquareScroll : MonoBehaviour
 {
    
@@ -12,8 +12,8 @@ public class SquareScroll : MonoBehaviour
     private Vector3 left;
     private Vector3 right;
     private float step;
-    private float speed = 0.5f;
-    
+    private float speed = 3.0f;
+    private int thisMod = 0;
     public GameObject stopSquare;
     private bool localMove = true;
     // Start is called before the first frame update
@@ -23,10 +23,24 @@ public class SquareScroll : MonoBehaviour
         left = new Vector3(-3.0f, GlobalVar.ypos, 0.0f);
         transform.position = right;
         step = speed * Time.deltaTime;
+        GlobalVar.squareSpeed = speed;
     }
 
     void Update()
     {
+        if (GlobalVar.squareCount>1)
+        {
+            GlobalVar.modulo = (int)(GlobalVar.squareCount % 10);
+            if (thisMod != GlobalVar.modulo)
+            {
+                thisMod = GlobalVar.modulo;
+
+                step = step +0.001f;
+            }
+            
+        }
+       
+        GlobalVar.squareSpeed = step;
         if (GlobalVar.gameOver == false)
         {
             right = new Vector3(3.0f, GlobalVar.ypos, 0.0f);
